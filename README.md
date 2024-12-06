@@ -107,3 +107,43 @@ Reporte serial:
 
 Imprime la distancia medida en centímetros y mensajes como "Abriendo" o "Cerrando" para depuración.
 ---------------------------------------------------------------------------
+6. Reproductor de melodías con control por pulsador(Zumbador)
+Descripción general
+Este programa permite reproducir dos melodías predefinidas mediante un pulsador. Cada pulsación cambia el estado del sistema:
+
+Estado inicial: Sistema inactivo.
+Primer estado: Reproduce la Melodía 2.
+Segundo estado: Reproduce la Melodía 1.
+Tercer estado: Reinicia y vuelve al estado inicial.
+Componentes necesarios
+Microcontrolador (Arduino).
+Zumbador activo o pasivo:
+Conectado al pin digital 10 para emitir las notas.
+Pulsador:
+Conectado al pin digital 2, configurado con resistencia pull-up interna.
+Fuente de alimentación adecuada.
+Funcionamiento del programa
+Definición de notas musicales (pitches.h):
+
+Contiene las frecuencias de las notas musicales usadas para generar sonidos en el zumbador.
+Configuración inicial (setup):
+
+Configura el pulsador como entrada con resistencia pull-up.
+Configura el zumbador como salida.
+Ciclo principal (loop):
+
+Debounce del pulsador:
+Detecta cambios de estado del pulsador usando un retardo mínimo para evitar lecturas erróneas.
+Estados del contador:
+Estado 1 (contador = 1):
+Reproduce la Melodía 2, definida en los arreglos melodia2 y duracion_nota2.
+Estado 2 (contador = 2):
+Reproduce la Melodía 1, definida en los arreglos melodia1 y duracion_nota1.
+Estado 3 (contador = 3):
+Reinicia el contador y detiene cualquier sonido en reproducción (noTone).
+Control de reproducción:
+
+Cada nota tiene una frecuencia y duración específica.
+Se usa la función tone(pin, frecuencia, duracion) para generar los tonos en el zumbador.
+El intervalo entre notas se ajusta dinámicamente en base a la duración de la nota previa.
+
