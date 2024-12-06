@@ -70,3 +70,40 @@ Si no hay botones presionados, el LED permanece apagado.
 Aplicaciones
 Indicadores luminosos.
 Interfaces de usuario básicas con control de colores.
+--------------------------------------------------------------------------
+5. Control de tapa con sensor ultrasónico, LEDs y servo
+Descripción general
+Este programa utiliza un sensor ultrasónico, LEDs y un servomotor para detectar objetos a corta distancia (≤5 cm). Si un objeto se acerca al sensor, el servomotor abre una tapa simulada, y los LEDs cambian de color para indicar el estado del sistema.
+Componentes necesarios
+Sensor ultrasónico HC-SR04:
+TrigPin: Emite el pulso ultrasónico.
+EchoPin: Recibe el eco del pulso reflejado por el objeto.
+LEDs:
+LED rojo (ledRed): Indica el estado inactivo o tapa cerrada.
+LED verde (ledGreen): Indica el estado activo o tapa abierta.
+Servomotor:
+Conectado al pin 3 para abrir y cerrar la tapa.
+Microcontrolador (Arduino).
+Fuente de alimentación adecuada.
+Inicialización (setup):
+
+Configura los pines de entrada/salida.
+Inicializa el servomotor en posición cerrada (0°).
+Enciende el LED rojo para indicar que el sistema está listo.
+Ciclo principal (loop):
+
+Medición de distancia:
+Envía un pulso ultrasónico desde el pin trigPin.
+Calcula el tiempo de retorno del eco desde el pin echoPin para determinar la distancia al objeto.
+Lógica de control:
+Si un objeto está a ≤5 cm:
+Cambia al LED verde.
+Abre la tapa (gira el servomotor a 70°).
+Espera 3 segundos.
+Cierra la tapa (gira el servomotor a 0°).
+Restaura el estado al LED rojo.
+Si no hay objeto cercano, permanece inactivo.
+Reporte serial:
+
+Imprime la distancia medida en centímetros y mensajes como "Abriendo" o "Cerrando" para depuración.
+---------------------------------------------------------------------------
