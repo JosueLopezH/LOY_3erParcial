@@ -1,149 +1,145 @@
-# LOY_3erParcial
+# LOT_3erParcial
 Códigos de Arduino 
+----------------------------------------------------------------------
+Código 1: Control de un display de 7 segmentos con números aleatorios
+Descripción: Este programa controla un display de 7 segmentos conectado a un microcontrolador como Arduino. Genera un número aleatorio entre 1 y 6, que es representado en el display. Se incluye un pulsador para pausar o reanudar la generación aleatoria.
 
-DOCUMENTACION DE CODIGOS
---------------------------------------------------------------------------
-1. Código de teclado matricial con verificación de clave
-Descripción
-El código utiliza un teclado matricial para ingresar una clave numérica que se compara con una clave maestra predefinida. Un LED verde indica si la clave es correcta y un LED rojo si es incorrecta.
-
-Componentes
-Teclado matricial 4x4.
-LED verde y LED rojo.
-Funcionamiento
-Configura un teclado matricial con pines definidos.
-Lee las teclas ingresadas y las almacena en un array CLAVE.
-Compara la clave ingresada con la clave maestra:
-Si coincide, enciende el LED verde por 2 segundos.
-Si no coincide, enciende el LED rojo por 2 segundos.
-Aplicaciones
-Sistemas básicos de seguridad.
-Verificación de contraseñas.
------------------------------------------------------------------------------
-2. Control de LEDs mediante un joystick
-Descripción
-El código controla cinco LEDs mediante un joystick. Los LEDs indican las direcciones (arriba, abajo, izquierda, derecha) y la pulsación del botón del joystick.
-
-Componentes
-Joystick con eje X, eje Y, y botón pulsador.
-Cinco LEDs.
-Funcionamiento
-Lee las posiciones del joystick (ejes X e Y) y el estado del botón.
-Enciende un LED según la dirección:
-Arriba: Y > 700.
-Abajo: Y < 300.
-Izquierda: X < 300.
-Derecha: X > 700.
-Enciende un LED adicional si el botón está presionado.
-Aplicaciones
-Interfaces de usuario con joystick.
-Control de dispositivos o vehículos.
-----------------------------------------------------------------------------
-3. Generador de números aleatorios con visualización en LEDs
-Descripción
-Genera números aleatorios del 1 al 6 (como un dado electrónico) y los muestra en LEDs usando un patrón de segmentos similar a un display de 7 segmentos. El sistema se detiene o reanuda con un pulsador.
-
-Componentes
-8 LEDs.
-Un pulsador.
-Funcionamiento
-Genera números aleatorios del 1 al 6.
-Enciende LEDs según el patrón del número generado (matriz numero).
-El pulsador alterna entre iniciar y detener el cambio de números.
-Aplicaciones
-Simulación de dados electrónicos.
-Juegos de azar o educativos.
-----------------------------------------------------------------------------
-4. Control de un LED RGB mediante botones
-Descripción
-Controla un LED RGB mediante tres botones, encendiendo uno de los colores (rojo, verde o azul) dependiendo del botón presionado.
-
-Componentes
-LED RGB con cátodo común.
-Tres botones.
-Funcionamiento
-Cada botón controla un color del LED:
-Botón 1: Rojo.
-Botón 2: Verde.
-Botón 3: Azul.
-Si no hay botones presionados, el LED permanece apagado.
-Aplicaciones
-Indicadores luminosos.
-Interfaces de usuario básicas con control de colores.
---------------------------------------------------------------------------
-5. Control de tapa con sensor ultrasónico, LEDs y servo
-Descripción general
-Este programa utiliza un sensor ultrasónico, LEDs y un servomotor para detectar objetos a corta distancia (≤5 cm). Si un objeto se acerca al sensor, el servomotor abre una tapa simulada, y los LEDs cambian de color para indicar el estado del sistema.
-Componentes necesarios
-Sensor ultrasónico HC-SR04:
-TrigPin: Emite el pulso ultrasónico.
-EchoPin: Recibe el eco del pulso reflejado por el objeto.
-LEDs:
-LED rojo (ledRed): Indica el estado inactivo o tapa cerrada.
-LED verde (ledGreen): Indica el estado activo o tapa abierta.
-Servomotor:
-Conectado al pin 3 para abrir y cerrar la tapa.
-Microcontrolador (Arduino).
-Fuente de alimentación adecuada.
-Inicialización (setup):
-
-Configura los pines de entrada/salida.
-Inicializa el servomotor en posición cerrada (0°).
-Enciende el LED rojo para indicar que el sistema está listo.
-Ciclo principal (loop):
-
-Medición de distancia:
-Envía un pulso ultrasónico desde el pin trigPin.
-Calcula el tiempo de retorno del eco desde el pin echoPin para determinar la distancia al objeto.
-Lógica de control:
-Si un objeto está a ≤5 cm:
-Cambia al LED verde.
-Abre la tapa (gira el servomotor a 70°).
-Espera 3 segundos.
-Cierra la tapa (gira el servomotor a 0°).
-Restaura el estado al LED rojo.
-Si no hay objeto cercano, permanece inactivo.
-Reporte serial:
-
-Imprime la distancia medida en centímetros y mensajes como "Abriendo" o "Cerrando" para depuración.
----------------------------------------------------------------------------
-6. Reproductor de melodías con control por pulsador(Zumbador)
-Descripción general
-Este programa permite reproducir dos melodías predefinidas mediante un pulsador. Cada pulsación cambia el estado del sistema:
-
-Estado inicial: Sistema inactivo.
-Primer estado: Reproduce la Melodía 2.
-Segundo estado: Reproduce la Melodía 1.
-Tercer estado: Reinicia y vuelve al estado inicial.
-Componentes necesarios
-Microcontrolador (Arduino).
-Zumbador activo o pasivo:
-Conectado al pin digital 10 para emitir las notas.
-Pulsador:
-Conectado al pin digital 2, configurado con resistencia pull-up interna.
-Fuente de alimentación adecuada.
-Funcionamiento del programa
-Definición de notas musicales (pitches.h):
-
-Contiene las frecuencias de las notas musicales usadas para generar sonidos en el zumbador.
+Funcionamiento:
+Definiciones iniciales:
+El array numero contiene la configuración de los segmentos del display para cada número del 0 al 9.
+Un pulsador conectado al pin 2 se usa para pausar o reanudar la generación de números.
 Configuración inicial (setup):
 
-Configura el pulsador como entrada con resistencia pull-up.
-Configura el zumbador como salida.
-Ciclo principal (loop):
+Se configuran los pines 3 a 10 como salidas para controlar los segmentos del display.
+Se configura el pin del pulsador como entrada.
+Lógica principal (loop):
 
-Debounce del pulsador:
-Detecta cambios de estado del pulsador usando un retardo mínimo para evitar lecturas erróneas.
-Estados del contador:
-Estado 1 (contador = 1):
-Reproduce la Melodía 2, definida en los arreglos melodia2 y duracion_nota2.
-Estado 2 (contador = 2):
-Reproduce la Melodía 1, definida en los arreglos melodia1 y duracion_nota1.
-Estado 3 (contador = 3):
-Reinicia el contador y detiene cualquier sonido en reproducción (noTone).
-Control de reproducción:
+Se lee el estado del pulsador. Si está presionado, alterna entre detener y reanudar la generación de números.
+Si está activo, se genera un número aleatorio entre 1 y 6 cada 50 ms.
+Si está detenido, se mantiene el último número en el display.
+Control del display:
 
-Cada nota tiene una frecuencia y duración específica.
-Se usa la función tone(pin, frecuencia, duracion) para generar los tonos en el zumbador.
-El intervalo entre notas se ajusta dinámicamente en base a la duración de la nota previa.
+El array numero indica qué segmentos se deben encender para mostrar un número.
+Los valores del array se asignan directamente a los pines correspondientes.
+Aplicaciones:
+
+Simulación de un dado electrónico.
+Enseñanza de conceptos básicos de electrónica digital.
+-----------------------------------------------------------------------------
+Código 2: Control de LEDs con un joystick analógico
+Descripción: Este programa controla cuatro LEDs (arriba, abajo, izquierda y derecha) y un LED adicional para una pulsación, basado en la posición de un joystick analógico.
+
+Funcionamiento:
+Definiciones iniciales:
+
+Se asignan pines para los LEDs y el joystick.
+Los ejes X y Y del joystick están conectados a entradas analógicas, y el botón del joystick a un pin digital.
+Configuración inicial (setup):
+
+Los pines de los LEDs se configuran como salidas.
+El botón del joystick se configura como entrada con un pull-up interno.
+Lógica principal (loop):
+
+Se leen los valores analógicos de los ejes X y Y, y el estado del botón.
+Según el rango de los valores analógicos:
+Se enciende el LED correspondiente a la dirección (arriba, abajo, izquierda o derecha).
+Si el botón está presionado, se enciende el LED de pulsación.
+Monitorización:
+
+Los valores de los ejes X, Y y el estado del botón se imprimen en el monitor serial para depuración.
+Aplicaciones:
+
+Interfaz de usuario para videojuegos o robots.
+Aprendizaje de sensores analógicos.
+---------------------------------------------------------------------------------
+Código 3: Teclado matricial para ingresar contraseñas
+Descripción: Este programa utiliza un teclado matricial de 4x4 para ingresar una contraseña. La contraseña ingresada se compara con una clave maestra predefinida, y se enciende un LED verde si es correcta, o un LED rojo si es incorrecta.
+
+Funcionamiento:
+Definiciones iniciales:
+
+Se define el mapeo de teclas y los pines del teclado matricial.
+Se establece la clave maestra (CLAVE_MAESTRA).
+Configuración inicial (setup):
+
+Se inicializan los LEDs rojo y verde como salidas.
+Se configura la comunicación serial para depuración.
+Lógica principal (loop):
+
+Se captura la tecla presionada y se almacena en un array.
+Cuando se ingresan 6 caracteres, se compara la entrada con la clave maestra:
+Si es correcta, se enciende el LED verde por 2 segundos.
+Si es incorrecta, se enciende el LED rojo por 2 segundos.
+Aplicaciones:
+
+Sistemas básicos de acceso con contraseña.
+Ejemplo práctico de lectura de teclados matriciales.
+---------------------------------------------------------------------------------
+Código 4: Control de un LED RGB con botones
+Descripción: Este programa utiliza tres botones para controlar un LED RGB. Cada botón activa un color primario (rojo, verde o azul).
+
+Funcionamiento:
+Definiciones iniciales:
+
+Los pines se asignan a los colores del LED y a los botones correspondientes.
+Configuración inicial (setup):
+
+Los pines del LED se configuran como salidas, y los botones como entradas.
+Lógica principal (loop):
+
+Se leen los estados de los botones.
+Según el botón presionado, se enciende el color correspondiente del LED RGB utilizando analogWrite para controlar la intensidad.
+Control de colores:
+
+La función encenderColor permite modular los valores de los canales rojo, verde y azul.
+Aplicaciones:
+
+Aprendizaje de LEDs RGB.
+Control básico de iluminación.
+-----------------------------------------------------------------------------------
+Código 5: Sistema con sensor ultrasónico y servomotor
+Descripción: Este programa utiliza un sensor ultrasónico para medir la distancia y controla un servomotor que simula abrir y cerrar una puerta. LEDs indican el estado del sistema.
+
+Funcionamiento:
+Definiciones iniciales:
+
+Se asignan pines al sensor ultrasónico, los LEDs y el servomotor.
+Se calculan las distancias usando el tiempo de los pulsos ultrasónicos.
+Configuración inicial (setup):
+
+Se inicializan los LEDs y el servomotor.
+El sistema comienza con la puerta cerrada y el LED rojo encendido.
+Lógica principal (loop):
+
+Se mide la distancia con el sensor ultrasónico.
+Si un objeto está a menos de 5 cm, el sistema:
+Enciende el LED verde.
+Abre la puerta (mueve el servomotor).
+Espera 3 segundos y cierra la puerta.
+Aplicaciones:
+
+Simulación de puertas automáticas.
+Sistemas de acceso sin contacto.
+------------------------------------------------------------------------------
+Código 6: Control de una puerta con servomotor
+Descripción: Este programa controla un servomotor que simula abrir y cerrar una puerta mediante dos funciones principales (AbrirPuerta y CerrarPuerta).
+
+Funcionamiento:
+Definiciones iniciales:
+
+Se configura un servomotor en el pin 3.
+Se definen LEDs para indicar el estado de la puerta.
+Configuración inicial (setup):
+
+El servomotor se conecta y se inicializa.
+Lógica principal (loop):
+
+Las funciones AbrirPuerta y CerrarPuerta:
+Mueven el servomotor gradualmente en pequeños pasos para abrir o cerrar la puerta.
+Controlan LEDs para mostrar el estado de la puerta.
+Aplicaciones:
+
+Simulación de sistemas de acceso controlado.
+Demostración de control de servomotores.
+
 
